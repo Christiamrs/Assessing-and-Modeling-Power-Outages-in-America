@@ -42,6 +42,14 @@ The data set collected by the researchers was large, contained missing values, a
 
 4. Next, I chose to drop 175 rows from the `outage.duration` column containing 0 and 1 minute values. I made this choice because these values not only impacted the effectiveness of the model but also because I felt that including outages events that seemingly lasted 0 or 1 minutes seemed rather unneccessary. I deduced that these values were not entirely accurate and had a larger negative impact on the analysis than benefit.
 
+
+<iframe
+  src="assets/date_duration.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 ## Assessment of Missingness
 ## Hypothesis Testing
 ## Framing a Prediction Problem
