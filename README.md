@@ -16,8 +16,8 @@ For this project I worked with 8 categories for this project as follows:
 
 | Column      | Description |
 | ----------- | ----------- |
-| 'month'     | Title       |
-| 'climate.category'   | Text        |
+| `month`    | Title       |
+| `climate.category`   | Text        |
 
 
 
