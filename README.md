@@ -40,7 +40,7 @@ The data set collected by the researchers was large, contained missing values, a
     2. Next, I dropped 6 rows containing the largest values in the `outage.duration` column. All of these values reached far over 40,000 minutes when the median `outage.duration` value was onl 690 minutes.
     3. Finally, I dropped NaN values from the `outage.start.date` column as there were 9 of these rows
 
-4. Next, I chose to drop 175 rows from the `outage.duration` column containing 0 and 1 minute values. I made this choice because these values not only impacted the effectiveness of the model, but also because I felt that including outages events that seemingly lasted 0 or 1 minutes seemed rather unneccessary. I deduced that these values were not entirely accurate and provided more of a negative impact to the analysis than benefit.
+4. Next, I chose to drop 175 rows from the `outage.duration` column containing 0 and 1 minute values. I made this choice because these values not only impacted the effectiveness of the model but also because I felt that including outages events that seemingly lasted 0 or 1 minutes seemed rather unneccessary. I deduced that these values were not entirely accurate and had a larger negative impact on the analysis than benefit.
 
 ## Assessment of Missingness
 ## Hypothesis Testing
