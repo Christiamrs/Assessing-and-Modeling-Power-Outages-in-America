@@ -19,7 +19,7 @@ For this project I worked with 11 categories for this project as follows:
 | `climate.category`| Represents the climate episodes corresponding to the years. Given as "warm", "normal", or "cold"        |
 | `demand.loss.mw`  | Amount of peak demand lost during an outage event     |
 | `climate.region`  | U.S. Climate regions as specified by National Centers for Environmental Information (9)   |
-| `areapct_urban`   | Percentage of the land area of the U.S. state represented by the land area of the urban clusters  |
+| `areapct_urban`   | Percentage of the land area of respective U.S. state represented by the land area of the urban clusters  |
 | `nerc.region`     | The North American Electric Reliability Corporation (NERC) regions involved in the outage event (6)  |
 | `cause.category`  | Categories of all the events causing the major power outages (6)|
 | `outage.duration` | Duration of outage events (minutes)|
@@ -46,6 +46,10 @@ The data set collected by the researchers was large, contained missing values, a
 
 2. Then I observed that the range of `outage.duration` values varied widely and would likely be modelled best after a log transformation. This choice not only linearized the data better but also dispersed the data in a manner that allowed for better visual displays.
 
+The result was a dataset with 10 columns and 1337 rows. These are the first 10 rows of the dataframe containing the data:
+
+|    | u.s._state   | nerc.region   | climate.region     | climate.category   | outage.start.date   | outage.restoration.date   | cause.category     |   outage.duration |   demand.loss.mw |   areapct_urban |\n|---:|:-------------|:--------------|:-------------------|:-------------------|:--------------------|:--------------------------|:-------------------|------------------:|-----------------:|----------------:|\n|  0 | Minnesota    | MRO           | East North Central | normal             | 2011-07-01 17:00:00 | 2011-07-03 20:00:00       | severe weather     |           8.02617 |                0 |            2.14 |\n|  1 | Minnesota    | MRO           | East North Central | cold               | 2010-10-26 20:00:00 | 2010-10-28 22:00:00       | severe weather     |           8.00637 |             1000 |            2.14 |\n|  2 | Minnesota    | MRO           | East North Central | normal             | 2012-06-19 04:30:00 | 2012-06-20 23:00:00       | severe weather     |           7.84385 |              300 |            2.14 |\n|  3 | Minnesota    | MRO           | East North Central | warm               | 2015-07-18 02:00:00 | 2015-07-19 07:00:00       | severe weather     |           7.46164 |              250 |            2.14 |\n|  4 | Minnesota    | MRO           | East North Central | cold               | 2010-11-13 15:00:00 | 2010-11-14 22:00:00       | severe weather     |           7.52833 |              266 |            2.14 |\n|  5 | Minnesota    | MRO           | East North Central | cold               | 2010-07-17 20:30:00 | 2010-07-19 22:00:00       | severe weather     |           7.99632 |                0 |            2.14 |\n|  6 | Minnesota    | MRO           | East North Central | normal             | 2005-06-08 04:00:00 | 2005-06-10 22:00:00       | severe weather     |           8.284   |               75 |            2.14 |\n|  7 | Minnesota    | MRO           | East North Central | warm               | 2015-03-16 07:31:00 | 2015-03-16 10:06:00       | intentional attack |           5.04343 |               20 |            2.14 |\n|  8 | Minnesota    | MRO           | East North Central | normal             | 2013-06-21 17:39:00 | 2013-06-24 06:00:00       | severe weather     |           8.19451 |                0 |            2.14 |\n|  9 | Minnesota    | MRO           | East North Central | normal             | 2013-06-21 03:00:00 | 2013-06-26 12:00:00       | severe weather     |           8.95416 |              168 |            2.14 |
+
 ### Exploratory Data Analysis
 
 I continued intial assessment of the dataset by performing *Univariate* and *Bivariate* data analysis
@@ -61,7 +65,7 @@ First I began by graphing the *median* duration of outage events by US State
   frameborder="0"
 ></iframe>
 
-
+Then I assessed Outage Duration by Date
 <iframe
   src="assets/date_duration2.html"
   width="800"
@@ -69,6 +73,7 @@ First I began by graphing the *median* duration of outage events by US State
   frameborder="0"
 ></iframe>
 
+Then I assessed the amount of Outage Events per Cause Category
 
 <iframe
   src="assets/bar3.html"
@@ -77,6 +82,10 @@ First I began by graphing the *median* duration of outage events by US State
   frameborder="0"
 ></iframe>
 
+#### Bivariate Analysis
+
+I continued analysis with Bivariate Analysis, beginning with an assessment of Outage Duration (transformed by log) by Cause Category.
+I included a line plot connecting the median Outage Duration value per each Cause Category
 
 <iframe
   src="assets/cause_duration4.html"
@@ -85,6 +94,9 @@ First I began by graphing the *median* duration of outage events by US State
   frameborder="0"
 ></iframe>
 
+Next, I plotted the Outage Duration by Demand Loss with both axes transformed by log.
+It's also important to note that this graph contains filled in null values for Demand Loss, filled by probabilistic imputation.
+It's best understood as a visualization of distribution but not necessarily an exact representation. 
 
 <iframe
   src="assets/demand_loss5.html"
@@ -93,6 +105,8 @@ First I began by graphing the *median* duration of outage events by US State
   frameborder="0"
 ></iframe>
 
+Lastly, I created a plot of Outage Duration (transformed by log) by NERC Region.
+And again for this plot, I included a line plot connecting the median Outage Duration value per each NERC Region.
 
 <iframe
   src="assets/nerc_duration6.html"
