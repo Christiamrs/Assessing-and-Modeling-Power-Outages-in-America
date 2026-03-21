@@ -153,7 +153,7 @@ Additionally, I also performed this permutation test between the null values and
   frameborder="0"
 ></iframe>
 
-### Hypothesis Testing
+## Hypothesis Testing
 
 Lastly, I performed a hypothesis test to assess these hypotheses the average time of Outage Duration with respect to Climate Categories. The null and alternative hypothesis were as follows:
 
@@ -170,8 +170,18 @@ To perform this hypothesis test I employed a absolute difference of means as a t
 ></iframe>
 
 
-## Hypothesis Testing
 ## Framing a Prediction Problem
+
+For this dataset, I am intending to predict Outage Duration for outage events in the continential United States. I feel the insight gained from predicting the duration of an outage event may significantly reduct the impact of these random events. The features used for these prediction models were: `month`, `climate.category`, `climate.region`, `areapct_urban`, `nerc.region`, `cause.category`, and the predictor column: `outage.duration`. I chose these as they seemed to have at least slight correlation with Outage Duration, as assessed through modelling and multiple iterations of models. Of these `areapct_urban` was the only quantitative feature. The rest are all nominal features, while `outage.duration` is what we are trying to predict and it is qualitative.
+
+For this process I used the Sklearn package to utilize column transformers, pipelines, and their built in Linear Regression functions. Because I was attempting to predict a quanititative value, I opted to use a Linear Model trained through k-folds training. 
+
 ## Baseline Model
+
+For the baseline model I did not utilize k-folds training to optimize the model. I opted to stick to only two features initially, `nerc.region` and `cause.category`. For these features I One Hot Encoded the columns and fitted a Linear Regression model to the resulting dataframe of 2 features. This starting model achieved a R^2 score of **~0.175**
+
 ## Final Model
-## Fairness Analysis
+
+To expand the model I began by including all 6 features aforementioned above. Then I One Hot Encoded all the nominal features. At this point it explored multiple transformations and pipelines to assess which one performed the best under 15 k-validation folds. It was at this point in my exploration where I discovered that applying a logarithmic scale to the Outage Duration data allowed for better predictions under a Linear model. Additionally, I tested varying amounts of features as well as different binarizing thresholds on `areapct_urban`. The training data showed that using all columns and applying a Binarizing mask to the `areapct_urban` features with a threshold 6 provided the best predictions on average. Additionally, I attempted to use Least Absolute Shrinkage and Selection Operator (Lasso) regression to model, with varying regularization strength. However, k-fold testing revealed that this method was worse than Linear Regression in all cases.
+
+Thus, the final model utilized Linear Regression on 5 One Hot Encoded nominal features, with a binarized `areapct_urban` feature with a threshold of 6. Addtionally, the `areapct_urban` was standardized while the `outage.duration` prediction data was transformed under a log scale. This model scored on average an R^2 score of **~0.423**
