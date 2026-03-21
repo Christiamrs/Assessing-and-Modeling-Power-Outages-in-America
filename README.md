@@ -135,7 +135,7 @@ I believe the `demand.loss.mw` column's 702 missing values can be attributed to 
 
 For this next section I performed permutation tests and measured the Total Variation Distance between the proportion of null values in the `customers.affected` column with respect to other columns. This was done with the aimt to determine if the nullness from the `customers.affected` column was dependent on another column in the dataframe or not, effectively attributing the missingness of `customers.affected` to Missing At Random (MAR).
 
-Through this investigation I determined the missingness of the `customers.affected` column was dependent on NERC Region. The results of this permutation test are shown in the histogram below. The observed TVD between the null values and non-null values in `customers.affected` and `nerc.regions` column was **~0.266**. After the 500 permutation shuffles and calculating the test TVDs it was found that this observed statistic was signficantly unlikely to have occured by change as the resulting p-value was *~0.0*
+Through this investigation I determined the missingness of the `customers.affected` column was dependent on NERC Region. The results of this permutation test are shown in the histogram below. The observed TVD between the null values and non-null values in `customers.affected` and `nerc.regions` column was **~0.266**. After the 500 permutation shuffles and calculating the test TVDs it was found that this observed statistic was signficantly unlikely to have occured by change as the resulting p-value was **~0.0**
 
 <iframe
   src="assets/TVDnerc1.html"
@@ -144,7 +144,7 @@ Through this investigation I determined the missingness of the `customers.affect
   frameborder="0"
 ></iframe>
 
-Additionally, I also performed this permutation test between the null values and non-null values in `customers.affected` and `climate.regions`. This test showed an observed TVD value of **~0.0363**. After permutation shuffling and calculating another 500 test TVDs a p-value of *~0.692* was found. Thus indicating that the missiningness of `customers.affected` *is not* dependent on the `climate.regions` data, accepting the null hypothesis in this case.
+Additionally, I also performed this permutation test between the null values and non-null values in `customers.affected` and `climate.regions`. This test showed an observed TVD value of **~0.0363**. After permutation shuffling and calculating another 500 test TVDs a p-value of **~0.692** was found. Thus indicating that the missiningness of `customers.affected` *is not* dependent on the `climate.regions` data, accepting the null hypothesis in this case.
 
 <iframe
   src="assets/TVDclimate2.html"
@@ -160,7 +160,7 @@ Lastly, I performed a hypothesis test to assess these hypotheses the average tim
 > Null hypothesis: Outage Duration on average is the same for 'Warm' and 'Cold' climate categories
 > Alternate hypothesis: Outage Duration on average is the larger for 'Warm' when compared to 'Cold' climate categories
 
-To perform this hypothesis test I employed a difference of means as a test statistic (Difference between 'Warm' and 'Cold') permutation shuffling. The observed test statistic was **~177.679** and the resulting p-value after testing was *~0.654*. This indiciated that we will accept the null hypothesis stating that it is likely the case that Outage Duration on average is the same for 'Warm' and 'Cold' climate categories.
+To perform this hypothesis test I employed a absolute difference of means as a test statistic (Difference between 'Warm' and 'Cold') permutation shuffling. The observed test statistic was **~177.679** and the resulting p-value after testing was **~0.654**. This indiciated that we will accept the null hypothesis stating that it is likely the case that Outage Duration on average is the same for 'Warm' and 'Cold' climate categories.
 
 <iframe
   src="assets/TVDhyp3.html"
