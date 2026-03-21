@@ -46,7 +46,7 @@ The data set collected by the researchers was large, contained missing values, a
 
 2. Then I observed that the range of `outage.duration` values varied widely and would likely be modelled best after a log transformation. This choice not only linearized the data better but also dispersed the data in a manner that allowed for better visual displays.
 
-The result was a dataset with 10 columns and 1337 rows. These are the first 10 rows of the dataframe containing the data:
+The result was a dataset with 10 columns and 1337 rows. These are the first 5 rows of the dataframe containing the data:
 
 | u.s._state   | nerc.region   | climate.region     | climate.category   | outage.start.date   | outage.restoration.date   | cause.category     |   outage.duration |   demand.loss.mw |   areapct_urban |
 |:-------------|:--------------|:-------------------|:-------------------|:--------------------|:--------------------------|:-------------------|------------------:|-----------------:|----------------:|
@@ -55,11 +55,6 @@ The result was a dataset with 10 columns and 1337 rows. These are the first 10 r
 | Minnesota    | MRO           | East North Central | normal             | 2012-06-19 04:30:00 | 2012-06-20 23:00:00       | severe weather     |           7.84385 |              300 |            2.14 |
 | Minnesota    | MRO           | East North Central | warm               | 2015-07-18 02:00:00 | 2015-07-19 07:00:00       | severe weather     |           7.46164 |              250 |            2.14 |
 | Minnesota    | MRO           | East North Central | cold               | 2010-11-13 15:00:00 | 2010-11-14 22:00:00       | severe weather     |           7.52833 |              266 |            2.14 |
-| Minnesota    | MRO           | East North Central | cold               | 2010-07-17 20:30:00 | 2010-07-19 22:00:00       | severe weather     |           7.99632 |                0 |            2.14 |
-| Minnesota    | MRO           | East North Central | normal             | 2005-06-08 04:00:00 | 2005-06-10 22:00:00       | severe weather     |           8.284   |               75 |            2.14 |
-| Minnesota    | MRO           | East North Central | warm               | 2015-03-16 07:31:00 | 2015-03-16 10:06:00       | intentional attack |           5.04343 |               20 |            2.14 |
-| Minnesota    | MRO           | East North Central | normal             | 2013-06-21 17:39:00 | 2013-06-24 06:00:00       | severe weather     |           8.19451 |                0 |            2.14 |
-| Minnesota    | MRO           | East North Central | normal             | 2013-06-21 03:00:00 | 2013-06-26 12:00:00       | severe weather     |           8.95416 |              168 |            2.14 |
 
 ### Exploratory Data Analysis
 
