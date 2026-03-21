@@ -43,7 +43,7 @@ The data set collected by the researchers was large, contained missing values, a
 
 ### Filling null values and Transforming
 
-1. I filled null values in the `demand.loss.mw` columns. There was 702 null rows in this column and I chose to fill these rows using probabilistic imputation, where I randomly drew values from the distribution of non-null values to complete the data set without changing the distribution much.
+1. I filled null values in the `demand.loss.mw` columns. There was 702 null rows in this column and I chose to fill these rows using probabilistic imputation, where values were randomly drawn from the distribution of non-null values to complete the data set without changing the distribution much.
 
 2. Then I observed that the range of `outage.duration` values varied widely and would likely be modelled best after a log transformation. This choice not only linearized the data better but also dispersed the data in a manner that allowed for better visual displays.
 
@@ -129,13 +129,13 @@ And again for this plot, I included a line plot connecting the median Outage Dur
 
 ### MNAR Analysis
 
-I believe the `demand.loss.mw` column's 702 missing values can be attributed to Missing Not At Random (MNAR) missingness. This data was obtained from mutliple sources with may have varying methods for recording Demand Loss. Very high or small demand loss may be difficult to determine or report. During these instanced demand loss was likely difficult to precisely measure which may be the cause for lack of reporting. Additionally, the need to retrieve Demand Loss data from multiple sources may indicate that this measure is likely very difficult to record in general, hence the lack of reporting entities. In total, Demand Loss was highely unrecorded within this dataset likely due to the nature of measuring Demand Loss itself.
+I believe the `demand.loss.mw` column's 702 missing values can be attributed to Missing Not At Random (MNAR) missingness. This data was obtained from mutliple sources with may have varying methods for recording Demand Loss. Very high or small demand loss may be difficult to determine or report. During these instances demand loss was likely difficult to precisely measure which may have caused the lack of reporting. Additionally, the need to retrieve Demand Loss data from multiple sources may indicate that this measure is simply very difficult to record in general, hence the lack of reporting entities. In total, Demand Loss was highely unrecorded within this dataset likely due to the nature of measuring Demand Loss itself.
 
 ### Missingness Dependency
 
-For this next section I performed permutation tests and measured the Total Variation Distance between the proportion of null values in the `customers.affected` column with respect to other columns. This was done with the aimt to determine if the nullness from the `customers.affected` column was dependent on another column in the dataframe or not, effectively attributing the missingness of `customers.affected` to Missing At Random (MAR).
+For this next section I performed permutation tests and measured the Total Variation Distance between the proportion of null values in the `customers.affected` column with respect to other columns. This was done with the aim to determine if the nullness from the `customers.affected` column was dependent on another column in the dataframe or not. This would effectively attributing the missingness of `customers.affected` to Missing At Random (MAR).
 
-Through this investigation I determined the missingness of the `customers.affected` column was dependent on NERC Region. The results of this permutation test are shown in the histogram below. The observed TVD between the null values and non-null values in `customers.affected` and `nerc.regions` column was **~0.266**. After the 500 permutation shuffles and calculating the test TVDs it was found that this observed statistic was signficantly unlikely to have occured by change as the resulting p-value was **~0.0**
+Through this investigation I determined the missingness of the `customers.affected` column was dependent on NERC Region. The results of this permutation test are shown in the histogram below. The observed TVD between the null values and non-null values in `customers.affected` and `nerc.regions` column was **~0.266**. After the 500 permutation shuffles and calculating the test TVDs it was found that this observed statistic was signficantly unlikely to have occured by chance as the resulting p-value was **~0.0**
 
 <iframe
   src="assets/TVDnerc1.html"
@@ -158,9 +158,10 @@ Additionally, I also performed this permutation test between the null values and
 Lastly, I performed a hypothesis test to assess these hypotheses the average time of Outage Duration with respect to Climate Categories. The null and alternative hypothesis were as follows:
 
 > Null hypothesis: Outage Duration on average is the same for 'Warm' and 'Cold' climate categories
+
 > Alternate hypothesis: Outage Duration on average is the larger for 'Warm' when compared to 'Cold' climate categories
 
-To perform this hypothesis test I employed a absolute difference of means as a test statistic (Difference between 'Warm' and 'Cold') permutation shuffling. The observed test statistic was **~177.679** and the resulting p-value after testing was **~0.654**. This indiciated that we will accept the null hypothesis stating that it is likely the case that Outage Duration on average is the same for 'Warm' and 'Cold' climate categories.
+To perform this hypothesis test I employed a absolute difference of means as a test statistic (Difference between 'Warm' and 'Cold') permutation shuffling. The observed test statistic was **177.679** and the resulting p-value after testing was **~0.654**. This allows the null hypothesis to be accepted indicating that it is likely the case that Outage Duration is the same for 'Warm' and 'Cold' climate categories on average.
 
 <iframe
   src="assets/TVDhyp3.html"
@@ -172,7 +173,7 @@ To perform this hypothesis test I employed a absolute difference of means as a t
 
 ## Framing a Prediction Problem
 
-For this dataset, I am intending to predict Outage Duration for outage events in the continential United States. I feel the insight gained from predicting the duration of an outage event may significantly reduct the impact of these random events. The features used for these prediction models were: `month`, `climate.category`, `climate.region`, `areapct_urban`, `nerc.region`, `cause.category`, and the predictor column: `outage.duration`. I chose these as they seemed to have at least slight correlation with Outage Duration, as assessed through modelling and multiple iterations of models. Of these `areapct_urban` was the only quantitative feature. The rest are all nominal features, while `outage.duration` is what we are trying to predict and it is qualitative.
+For this dataset, I intended to predict Outage Duration for outage events in the continential United States. I feel the insight gained from predicting the duration of an outage event may significantly reduct the impact of these random events. The features used for these prediction models were: `month`, `climate.category`, `climate.region`, `areapct_urban`, `nerc.region`, `cause.category`, and the predictor column: `outage.duration`. I chose these as they seemed to have at least a slight correlation with Outage Duration, as assessed through modelling and multiple iterations of models. Of these `areapct_urban` was the only quantitative feature. The rest are all nominal features, while `outage.duration` is what we are trying to predict and is qualitative.
 
 For this process I used the Sklearn package to utilize column transformers, pipelines, and their built in Linear Regression functions. Because I was attempting to predict a quanititative value, I opted to use a Linear Model trained through k-folds training. 
 
@@ -184,4 +185,4 @@ For the baseline model I did not utilize k-folds training to optimize the model.
 
 To expand the model I began by including all 6 features aforementioned above. Then I One Hot Encoded all the nominal features. At this point it explored multiple transformations and pipelines to assess which one performed the best under 15 k-validation folds. It was at this point in my exploration where I discovered that applying a logarithmic scale to the Outage Duration data allowed for better predictions under a Linear model. Additionally, I tested varying amounts of features as well as different binarizing thresholds on `areapct_urban`. The training data showed that using all columns and applying a Binarizing mask to the `areapct_urban` features with a threshold 6 provided the best predictions on average. Additionally, I attempted to use Least Absolute Shrinkage and Selection Operator (Lasso) regression to model, with varying regularization strength. However, k-fold testing revealed that this method was worse than Linear Regression in all cases.
 
-Thus, the final model utilized Linear Regression on 5 One Hot Encoded nominal features, with a binarized `areapct_urban` feature with a threshold of 6. Addtionally, the `areapct_urban` was standardized while the `outage.duration` prediction data was transformed under a log scale. This model scored on average an R^2 score of **~0.423**
+Thus, the final model utilized Linear Regression on 5 One Hot Encoded, nominal features, with a binarized `areapct_urban` feature utilizing a threshold of 6. Addtionally, the `areapct_urban` was standardized while the `outage.duration` prediction data was transformed under a log scale. This model scored on average an R^2 score of **~0.423**
