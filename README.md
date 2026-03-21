@@ -56,7 +56,7 @@ I continued intial assessment of the dataset by performing *Univariate* and *Biv
 
 
 <iframe
-  src="assets/.map.html"
+  src="assets/map.html"
   width="800"
   height="600"
   frameborder="0"
@@ -64,7 +64,7 @@ I continued intial assessment of the dataset by performing *Univariate* and *Biv
 
 
 <iframe
-  src="assets/.date_duration2.html"
+  src="assets/date_duration2.html"
   width="800"
   height="600"
   frameborder="0"
@@ -72,7 +72,7 @@ I continued intial assessment of the dataset by performing *Univariate* and *Biv
 
 
 <iframe
-  src="assets/.bar3.html"
+  src="assets/bar3.html"
   width="800"
   height="600"
   frameborder="0"
@@ -80,7 +80,7 @@ I continued intial assessment of the dataset by performing *Univariate* and *Biv
 
 
 <iframe
-  src="assets/.cause_duration4.html"
+  src="assets/cause_duration4.html"
   width="800"
   height="600"
   frameborder="0"
@@ -88,7 +88,7 @@ I continued intial assessment of the dataset by performing *Univariate* and *Biv
 
 
 <iframe
-  src="assets/.demand_loss5.html"
+  src="assets/demand_loss5.html"
   width="800"
   height="600"
   frameborder="0"
@@ -96,7 +96,7 @@ I continued intial assessment of the dataset by performing *Univariate* and *Biv
 
 
 <iframe
-  src="assets/.nerc_duration6.html"
+  src="assets/nerc_duration6.html"
   width="800"
   height="600"
   frameborder="0"
