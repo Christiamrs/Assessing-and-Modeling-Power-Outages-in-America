@@ -38,6 +38,7 @@ The data set collected by the researchers was large, contained missing values, a
     2. Next, I dropped 6 rows containing the largest values in the `outage.duration` column. All of these values reached far over 40,000 minutes when the median `outage.duration` value was onl 690 minutes.
     3. Finally, I dropped NaN values from the `outage.start.date` column as there were 9 of these rows
 
+
 4. Next, I chose to drop 175 rows from the `outage.duration` column containing 0 and 1 minute values. I made this choice because these values not only impacted the effectiveness of the model but also because I felt that including outages events that seemingly lasted 0 or 1 minutes seemed rather unneccessary. I deduced that these values were not entirely accurate and had a larger negative impact on the analysis than benefit.
 
 ### Filling null values and Transforming
@@ -71,7 +72,9 @@ First I began by graphing the *median* duration of outage events by US State
   frameborder="0"
 ></iframe>
 
-Then I assessed Outage Duration by Date
+
+Then I assessed Outage Duration (transformed by log) by Date
+
 <iframe
   src="assets/date_duration2.html"
   width="800"
@@ -122,8 +125,51 @@ And again for this plot, I included a line plot connecting the median Outage Dur
 ></iframe>
 
 
-
 ## Assessment of Missingness
+
+### MNAR Analysis
+
+I believe the `demand.loss.mw` column's 702 missing values can be attributed to Missing Not At Random (MNAR) missingness. This data was obtained from mutliple sources with may have varying methods for recording Demand Loss. Very high or small demand loss may be difficult to determine or report. During these instanced demand loss was likely difficult to precisely measure which may be the cause for lack of reporting. Additionally, the need to retrieve Demand Loss data from multiple sources may indicate that this measure is likely very difficult to record in general, hence the lack of reporting entities. In total, Demand Loss was highely unrecorded within this dataset likely due to the nature of measuring Demand Loss itself.
+
+### Missingness Dependency
+
+For this next section I performed permutation tests and measured the Total Variation Distance between the proportion of null values in the `customers.affected` column with respect to other columns. This was done with the aimt to determine if the nullness from the `customers.affected` column was dependent on another column in the dataframe or not, effectively attributing the missingness of `customers.affected` to Missing At Random (MAR).
+
+Through this investigation I determined the missingness of the `customers.affected` column was dependent on NERC Region. The results of this permutation test are shown in the histogram below. The observed TVD between the null values and non-null values in `customers.affected` and `nerc.regions` column was **~0.266**. After the 500 permutation shuffles and calculating the test TVDs it was found that this observed statistic was signficantly unlikely to have occured by change as the resulting p-value was *~0.0*
+
+<iframe
+  src="assets/TVDnerc1.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+Additionally, I also performed this permutation test between the null values and non-null values in `customers.affected` and `climate.regions`. This test showed an observed TVD value of **~0.0363**. After permutation shuffling and calculating another 500 test TVDs a p-value of *~0.692* was found. Thus indicating that the missiningness of `customers.affected` *is not* dependent on the `climate.regions` data, accepting the null hypothesis in this case.
+
+<iframe
+  src="assets/TVDclimate2.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+### Hypothesis Testing
+
+Lastly, I performed a hypothesis test to assess these hypotheses the average time of Outage Duration with respect to Climate Categories. The null and alternative hypothesis were as follows:
+
+> Null hypothesis: Outage Duration on average is the same for 'Warm' and 'Cold' climate categories
+> Alternate hypothesis: Outage Duration on average is the larger for 'Warm' when compared to 'Cold' climate categories
+
+To perform this hypothesis test I employed a difference of means as a test statistic (Difference between 'Warm' and 'Cold') permutation shuffling. The observed test statistic was **~177.679** and the resulting p-value after testing was *~0.654*. This indiciated that we will accept the null hypothesis stating that it is likely the case that Outage Duration on average is the same for 'Warm' and 'Cold' climate categories.
+
+<iframe
+  src="assets/TVDhyp3.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
 ## Hypothesis Testing
 ## Framing a Prediction Problem
 ## Baseline Model
