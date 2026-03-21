@@ -31,6 +31,8 @@ For this project I worked with 11 categories for this project as follows:
 ## Data Cleaning and Exploratory Data Analysis
 The data set collected by the researchers was large, contained missing values, and provided information not necessary to this analysis. So, I began this analysis by cleaning the dataset.
 
+### Cleaning
+
 1. To begin cleaning I reformatted the dataset to utilize a numerical index and set the coloumn names. Then I removed unneccessary columns leaving only the 11 aformentioned columns.
 
 2. Then I combined `outage.start.date` with `outage.start.time` and `outage.restoration.date` with `outage.restoration.time`. Both columns provided string values before but I chose to combine and change the type to utilize pd.timestamp values.
@@ -42,13 +44,65 @@ The data set collected by the researchers was large, contained missing values, a
 
 4. Next, I chose to drop 175 rows from the `outage.duration` column containing 0 and 1 minute values. I made this choice because these values not only impacted the effectiveness of the model but also because I felt that including outages events that seemingly lasted 0 or 1 minutes seemed rather unneccessary. I deduced that these values were not entirely accurate and had a larger negative impact on the analysis than benefit.
 
+### Filling null values and Transforming
+
+1. I filled null values in the `demand.loss.mw` columns. There was 702 null rows in this column and I chose to fill these rows using probabilistic imputation, where I randomly drew values from the distribution of non-null values to complete the data set without changing the distribution much.
+
+2. Then I observed that the range of `outage.duration` values varied widely and would likely be modelled best after a log transformation. This choice not only linearized the data better but also dispersed the data in a manner that allowed for better visual displays.
+
+### Exploratory Data Analysis
+
+I continued intial assessment of the dataset by performing *Univariate* and *Bivariate* data analysis
+
 
 <iframe
-  src="assets/date_duration.html"
+  src="assets/.map.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
+
+<iframe
+  src="assets/.date_duration2.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
+<iframe
+  src="assets/.bar3.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
+<iframe
+  src="assets/.cause_duration4.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
+<iframe
+  src="assets/.demand_loss5.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
+<iframe
+  src="assets/.nerc_duration6.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
 
 ## Assessment of Missingness
 ## Hypothesis Testing
